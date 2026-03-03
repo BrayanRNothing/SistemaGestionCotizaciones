@@ -45,8 +45,8 @@ const Login = () => {
           minHeight: 200.00,
           minWidth: 200.00,
           scale: 1.00,
-          color1: 0x101025,
-          color2: 0x0f5b30,
+          color1: 0x8c8c,
+          color2: 0x8cf4f4,
           size: 5.00,
           speed: 0.00
         });
