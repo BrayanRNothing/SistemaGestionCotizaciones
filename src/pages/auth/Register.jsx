@@ -36,7 +36,7 @@ const Register = () => {
                     minWidth: 200.00,
                     scale: 1.00,
                     color1: 0x101025,
-                    color2: 0x7e7e64,
+                    color2: 0x0f5b30,
                     size: 5.00,
                     speed: 0.00
                 });
