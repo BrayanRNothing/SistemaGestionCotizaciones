@@ -271,15 +271,23 @@ const uploadDocumentos = multer({
   }
 });
 
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : ['http://localhost:5173', 'https://sistema-gestion-cotizaciones-xi.vercel.app'];
+
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir llamadas sin origen (como Postman) o cualquier origen web
-    callback(null, true);
+    // Permitir sin origen (Postman, Railway health checks) o si está en la lista
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
-  optionsSuccessStatus: 200 // algunos navegadores legados (smartTVs, etc.) pueden requerirlo
+  optionsSuccessStatus: 200
 }));
 app.use(express.json());
 
