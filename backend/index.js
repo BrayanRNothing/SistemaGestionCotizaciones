@@ -4,8 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import multer from 'multer';
-// import pkg from 'pg'; // Replaced by SQLite
-import Database from 'better-sqlite3'; // SQLite
+import pkg from 'pg';
 import dotenv from 'dotenv';
 import { migrarDocumentos } from './migrations/documentos.js';
 import crearRutasDocumentos from './routes/documentos.js';
@@ -17,7 +16,7 @@ import { enviarEmailBienvenida, notificarNuevaCotizacion, notificarCambioEstado,
 
 
 dotenv.config();
-// const { Pool } = pkg;
+const { Pool } = pkg;
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -25,72 +24,11 @@ const PORT = process.env.PORT || 4001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// --- BASE DE DATOS (SQLite Local) ---
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-// });
-
-const db = new Database('sistema_gestion.db'); // Removed verbose for cleaner startup
-db.pragma('journal_mode = WAL');
-
-// Simple wrapper to mimic pg pool
-const pool = {
-  query: async (text, params = []) => {
-    let sql = text;
-    
-    // Convert $1, $2... to @p1, @p2... for named parameters in SQLite
-    sql = sql.replace(/\$(\d+)/g, (match, number) => `@p${number}`);
-
-    // Map array params to object { p1: val, p2: val }
-    const paramObj = {};
-    params.forEach((val, idx) => {
-      let finalVal = val;
-      if (val === true) finalVal = 1;
-      if (val === false) finalVal = 0;
-      if (typeof val === 'object' && val !== null) finalVal = JSON.stringify(val);
-      paramObj[`p${idx + 1}`] = finalVal;
-    });
-
-    // Handle PG specifics replacements
-    sql = sql.replace(/SERIAL PRIMARY KEY/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT');
-    sql = sql.replace(/JSONB/gi, 'TEXT'); 
-    sql = sql.replace(/BOOLEAN/gi, 'INTEGER');
-    sql = sql.replace(/::\w+/g, ''); // Remove all PG casting (::jsonb, ::text, etc)
-    sql = sql.replace(/ADD COLUMN IF NOT EXISTS/gi, 'ADD COLUMN'); // Remove IF NOT EXISTS for columns
-    sql = sql.replace(/true/gi, '1').replace(/false/gi, '0');
-    
-    // Specific fix for "SELECT COUNT(*) FROM" -> "SELECT COUNT(*) as count FROM" 
-    // because pg returns rows with lowercase column names usually, but count(*) returns "COUNT(*)" in sqlite
-    if (sql.includes('SELECT COUNT(*) FROM')) {
-       sql = sql.replace('SELECT COUNT(*) FROM', 'SELECT COUNT(*) as count FROM');
-    }
-
-    try {
-      // Basic detection of query type
-      const isSelect = sql.trim().toUpperCase().startsWith('SELECT') || sql.toUpperCase().includes('RETURNING');
-      
-      const stmt = db.prepare(sql);
-      
-      if (isSelect) {
-        const rows = stmt.all(paramObj);
-        return { rows, rowCount: rows.length };
-      } else {
-        const info = stmt.run(paramObj);
-        return { rows: [], rowCount: info.changes };
-      }
-    } catch (err) {
-      // Ignore "table/column already exists" for migration scripts
-      if (err.message.includes('already exists') || err.message.includes('duplicate column')) {
-        return { rows: [], rowCount: 0 };
-      }
-      console.error('SQL Error:', err.message);
-      // throw err; // Don't throw to prevent crash on minor migration errors
-      return { rows: [], rowCount: 0 };
-    }
-  }
-};
-
+// --- BASE DE DATOS (PostgreSQL) ---
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
 // Inicializar Tablas
 const initDB = async () => {
@@ -181,16 +119,18 @@ const initDB = async () => {
     // Migración: Agregar columnas si no existen
     const addColumn = async (table, column, type, defaultValue = null) => {
       try {
-        // SQLite doesn't support IF NOT EXISTS in ADD COLUMN
-        // Check if column exists first
-        const tableInfo = await pool.query(`PRAGMA table_info(${table})`);
-        const exists = tableInfo.rows.some(col => col.name === column);
-        
-        if (!exists) {
-            let sql = `ALTER TABLE ${table} ADD COLUMN ${column} ${type}`;
-            if (defaultValue !== null) sql += ` DEFAULT ${defaultValue}`;
-            await pool.query(sql);
-            console.log(`✅ Columna ${column} agregada a ${table}`);
+        const query = `
+          SELECT column_name 
+          FROM information_schema.columns 
+          WHERE table_name=$1 AND column_name=$2
+        `;
+        const exists = await pool.query(query, [table, column]);
+
+        if (exists.rowCount === 0) {
+          let sql = `ALTER TABLE ${table} ADD COLUMN ${column} ${type}`;
+          if (defaultValue !== null) sql += ` DEFAULT ${defaultValue}`;
+          await pool.query(sql);
+          console.log(`✅ Columna ${column} agregada a ${table}`);
         }
       } catch (e) {
         // Ignorar errores
@@ -399,7 +339,7 @@ const storageDocumentos = multer.diskStorage({
     cb(null, Date.now() + '-' + cleanName);
   }
 });
-const uploadDocumentos = multer({ 
+const uploadDocumentos = multer({
   storage: storageDocumentos,
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'application/pdf') {
@@ -416,12 +356,12 @@ app.use(express.json());
 // Middleware para manejar rutas de archivos antiguas (uploads/) y nuevas (uploads/documentos/)
 app.use('/uploads', (req, res, next) => {
   const filePath = path.join(UPLOADS_DIR, req.path);
-  
+
   // Si el archivo existe en la ruta solicitada, servirlo
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     return res.sendFile(filePath);
   }
-  
+
   // Si no existe y no es una ruta de documentos, buscar en documentos/
   if (!req.path.startsWith('/documentos/')) {
     const altPath = path.join(DOCUMENTOS_DIR, req.path);
@@ -429,7 +369,7 @@ app.use('/uploads', (req, res, next) => {
       return res.sendFile(altPath);
     }
   }
-  
+
   // Fallback al static normal
   next();
 });
@@ -560,7 +500,7 @@ app.put('/api/servicios/:id', uploadDocumentos.single('archivo'), async (req, re
     if (update.estado) {
       await pool.query('UPDATE servicios SET estado = $1 WHERE id = $2', [update.estado, id]);
       estadoCambiado = true;
-      
+
       // 📧 Si es finalizado, notificar a TODOS los admins
       if (update.estado === 'finalizado') {
         const servicioResult = await pool.query('SELECT * FROM servicios WHERE id = $1', [id]);
@@ -592,7 +532,7 @@ app.put('/api/servicios/:id', uploadDocumentos.single('archivo'), async (req, re
 
     if (update.tecnicoAsignado) {
       await pool.query('UPDATE servicios SET tecnicoAsignado = $1 WHERE id = $2', [update.tecnicoAsignado, id]);
-      
+
       // 📧 Notificar al técnico sobre nueva tarea
       const tecnicoResult = await pool.query('SELECT email FROM usuarios WHERE nombre = $1', [update.tecnicoAsignado]);
       if (tecnicoResult.rows[0]?.email) {
@@ -738,13 +678,13 @@ app.get('/api/standalone-cotizaciones/next-number', async (req, res) => {
       ORDER BY numero DESC 
       LIMIT 1
     `);
-    
+
     let nextNumber = 13000; // número inicial
     if (rows.length > 0) {
       const lastNumber = parseInt(rows[0].numero.split('-')[1]);
       nextNumber = lastNumber + 1;
     }
-    
+
     const formattedNumber = `COT-${nextNumber.toString().padStart(6, '0')}`;
     res.json({ success: true, numero: formattedNumber });
   } catch (error) {
@@ -754,10 +694,10 @@ app.get('/api/standalone-cotizaciones/next-number', async (req, res) => {
 
 app.post('/api/standalone-cotizaciones', async (req, res) => {
   const { numero, fecha, cliente_nombre, titulo, datos, pdf_url, total, isUpdate, oldNumero, oldPdfUrl } = req.body;
-  
+
   // Log para debug
   console.log('📝 Guardando cotización:', { numero, cliente_nombre, titulo, isUpdate, oldNumero, hasDatos: !!datos });
-  
+
   try {
     // Asegurar que datos sea un objeto válido o string JSON
     let datosJSON;
@@ -768,20 +708,20 @@ app.post('/api/standalone-cotizaciones', async (req, res) => {
     } else {
       datosJSON = null;
     }
-    
+
     // Extraer cliente_nombre de datos si no viene directamente
     const clienteNombreFinal = cliente_nombre || datos?.cliente?.nombre || datos?.clienteNombre || null;
     const tituloFinal = titulo || datos?.titulo || null;
     const fechaFinal = fecha || datos?.fecha || null;
     const totalFinal = total || datos?.total || 0;
     const pdfUrlFinal = pdf_url || datos?.pdfUrl || null;
-    
+
     if (isUpdate) {
       // Si hay oldNumero, significa que se está cambiando el número
       const numeroActualizar = oldNumero || numero;
-      
+
       console.log('🔄 Actualizando cotización:', numeroActualizar, '→', numero);
-      
+
       await pool.query(`
         UPDATE cotizaciones SET
           numero = $1,
@@ -796,25 +736,25 @@ app.post('/api/standalone-cotizaciones', async (req, res) => {
 
       // 🧹 Limpieza de PDF antiguo (si cambio URL y enviaron oldPdfUrl)
       if (oldPdfUrl && pdfUrlFinal && oldPdfUrl !== pdfUrlFinal) {
-          const oldPath = path.join(__dirname, oldPdfUrl);
-          if (fs.existsSync(oldPath)) {
-              fs.unlink(oldPath, (err) => {
-                  if (err) console.error('⚠️ Error eliminando PDF viejo:', err);
-                  else console.log('🗑️ PDF antiguo eliminado:', oldPdfUrl);
-              });
-          }
+        const oldPath = path.join(__dirname, oldPdfUrl);
+        if (fs.existsSync(oldPath)) {
+          fs.unlink(oldPath, (err) => {
+            if (err) console.error('⚠️ Error eliminando PDF viejo:', err);
+            else console.log('🗑️ PDF antiguo eliminado:', oldPdfUrl);
+          });
+        }
       }
 
     } else {
       console.log('➕ Creando nueva cotización:', numero);
-      
+
       // Crear nueva cotización
       await pool.query(`
         INSERT INTO cotizaciones (numero, fecha, cliente_nombre, titulo, datos, pdf_url, total)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
       `, [numero, fechaFinal, clienteNombreFinal, tituloFinal, datosJSON, pdfUrlFinal, totalFinal]);
     }
-    
+
     console.log('✅ Cotización guardada exitosamente:', numero);
     res.json({ success: true });
   } catch (error) {
