@@ -19,6 +19,12 @@ const { Pool } = pkg;
 const app = express();
 const PORT = process.env.PORT || 4001;
 
+console.log('--- INICIO DE APLICACIÓN ---');
+console.log('Puerto detectado:', PORT);
+console.log('Entorno:', process.env.NODE_ENV);
+console.log('DATABASE_URL configurada:', process.env.DATABASE_URL ? 'SÍ' : 'NO');
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -290,6 +296,12 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 app.use(express.json());
+
+// INICIAR SERVIDOR INMEDIATAMENTE para que Railway vea el puerto abierto
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Servidor escuchando en http://0.0.0.0:${PORT}`);
+});
+
 
 // Middleware para manejar rutas de archivos antiguas (uploads/) y nuevas (uploads/documentos/)
 app.use('/uploads', (req, res, next) => {
@@ -727,4 +739,5 @@ app.post('/api/db/reset', async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Server en puerto ${PORT}`));
+// El servidor ya inició arriba para evitar timeouts de Railway
+
