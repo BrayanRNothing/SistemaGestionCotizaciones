@@ -154,8 +154,8 @@ const AdminLayout = () => {
                   <Link
                     to={item.path}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${location.pathname === item.path
-                      ? 'bg-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 border border-blue-400/30'
-                      : 'text-blue-200 hover:bg-blue-800 hover:text-white'
+                      ? 'bg-black/40 text-white font-bold shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md'
+                      : 'text-gray-900 font-semibold hover:bg-black/20 hover:text-black backdrop-blur-sm'
                       }`}
                   >
                     {item.icon}
