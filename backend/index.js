@@ -28,6 +28,10 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
+pool.on('error', (err) => {
+  console.error('❌ Error inesperado del cliente de base de datos:', err);
+});
+
 // Inicializar Tablas
 const initDB = async () => {
   try {
@@ -269,13 +273,14 @@ const uploadDocumentos = multer({
 });
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://sistema-gestion-cotizaciones-xi.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    // Permitir llamadas sin origen (como Postman) o cualquier origen web
+    callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  credentials: true,
+  optionsSuccessStatus: 200 // algunos navegadores legados (smartTVs, etc.) pueden requerirlo
 }));
 app.use(express.json());
 
