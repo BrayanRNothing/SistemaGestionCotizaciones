@@ -22,10 +22,10 @@ function ModalUsuario({ modoEdicion, formData, setFormData, handleSubmit, cerrar
         minHeight: 200.0,
         minWidth: 200.0,
         scale: 1.0,
-        color1: 0x101025,
-        color2: 0x35b1f2,
+        color1: 0x8c8c,
+        color2: 0x8cf4f4,
         size: 5.0,
-        speed: 0.9,
+        speed: 0.0,
       });
     }
     return () => {
