@@ -29,9 +29,9 @@ const DistribuidorLayout = () => {
           scale: 1.00,
           scaleMobile: 1.00,
           color1: 0x101025,
-          color2: 0x35b1f2,
-          size: 3.50,
-          speed: 0.90
+          color2: 0x7e7e64,
+          size: 5.00,
+          speed: 0.00
         });
       } catch (error) {
         console.error("Error al iniciar Vanta:", error);

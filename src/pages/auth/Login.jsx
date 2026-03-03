@@ -46,9 +46,9 @@ const Login = () => {
           minWidth: 200.00,
           scale: 1.00,
           color1: 0x101025,
-          color2: 0x35b1f2,
+          color2: 0x7e7e64,
           size: 5.00,
-          speed: 0.90
+          speed: 0.00
         });
       } catch (error) {
         console.error("Error al iniciar Vanta:", error);
