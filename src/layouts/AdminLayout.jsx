@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import * as THREE from 'three';
-// import CELLS from 'vanta/dist/vanta.cells.min.js'; // Removed Vanta
+import CELLS from 'vanta/dist/vanta.cells.min.js';
 import Avatar from '../components/ui/Avatar';
 import { getUser, logout } from '../utils/authUtils';
 
 const AdminLayout = () => {
   const location = useLocation();
-  // const vantaRef = useRef(null); // Removed Vanta
-  // const vantaInstanceRef = useRef(null); // Removed Vanta
+  const vantaRef = useRef(null);
+  const vantaInstanceRef = useRef(null);
   const [usuario, setUsuario] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -16,10 +16,32 @@ const AdminLayout = () => {
     // Cargar usuario
     const userGuardado = getUser();
     setUsuario(userGuardado);
-    /* Removed Vanta initialization */
+    if (vantaRef.current && !vantaInstanceRef.current) {
+      try {
+        vantaInstanceRef.current = CELLS({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          color1: 0x8c8c,
+          color2: 0x8cf4f4,
+          size: 5.00,
+          speed: 0.00
+        });
+      } catch (error) {
+        console.error("Error al iniciar Vanta:", error);
+      }
+    }
 
     return () => {
-      /* Removed Vanta cleanup */
+      if (vantaInstanceRef.current) {
+        vantaInstanceRef.current.destroy();
+        vantaInstanceRef.current = null;
+      }
     };
   }, []);
 
@@ -98,11 +120,12 @@ const AdminLayout = () => {
 
       {/* 1. SIDEBAR (Barra Lateral) GENERIC GRAY */}
       <aside
+        ref={vantaRef}
         className={`fixed inset-y-0 left-0 z-50 w-64 md:relative md:flex flex-col transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} overflow-hidden shadow-2xl md:shadow-none bg-blue-900 border-r border-blue-800`}
       >
 
         {/* Removed Overlay */}
-        
+
         {/* Contenido del sidebar */}
         <div className="relative z-10 flex flex-col h-full">
           {/* Logo o Título */}
