@@ -277,19 +277,8 @@ const uploadDocumentos = multer({
   }
 });
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
-  : ['http://localhost:5173', 'https://sistema-gestion-cotizaciones-xi.vercel.app'];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Permitir sin origen (Postman, Railway health checks) o si está en la lista
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS: ' + origin));
-    }
-  },
+  origin: true, // Permitir cualquier origen que haga la petición
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
@@ -297,9 +286,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Logger de peticiones para ver si llegan a Railway
+app.use((req, res, next) => {
+  console.log(`📡 [${new Date().toLocaleTimeString()}] ${req.method} ${req.url} - Origin: ${req.get('Origin') || 'No Origin'}`);
+  next();
+});
+
 // INICIAR SERVIDOR INMEDIATAMENTE para que Railway vea el puerto abierto
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor escuchando en http://0.0.0.0:${PORT}`);
+  console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
 });
 
 
