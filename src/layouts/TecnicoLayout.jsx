@@ -71,7 +71,7 @@ const TecnicoLayout = () => {
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 left-0 w-full bg-blue-900 border-t border-blue-800 shadow-lg pb-safe">
+      <nav className="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-gray-200/50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] pb-safe z-50">
         <ul className="flex justify-around items-center h-16">
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -79,7 +79,7 @@ const TecnicoLayout = () => {
               <li key={item.name} className="w-full">
                 <Link
                   to={item.path}
-                  className={`flex flex-col items-center justify-center h-full space-y-1 ${isActive ? 'text-blue-300' : 'text-blue-100 hover:text-blue-300'} bg-transparent`}
+                  className={`flex flex-col items-center justify-center h-full space-y-1 ${isActive ? 'text-blue-600 font-bold' : 'text-gray-500 hover:text-blue-600'} bg-transparent`}
                 >
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-[10px] font-medium">{item.name}</span>

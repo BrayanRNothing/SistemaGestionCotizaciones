@@ -77,13 +77,13 @@ const ClienteLayout = () => {
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 left-0 w-full bg-blue-900 border-t border-blue-800 shadow-lg pb-safe z-50">
+      <nav className="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-gray-200/50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] pb-safe z-50">
         <div className="max-w-2xl mx-auto px-6 py-2">
           <div className="flex items-center justify-around relative h-16">
             {/* Home */}
             <button
               onClick={() => handleTabChange('home')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'home' ? 'text-blue-300' : 'text-blue-100 hover:text-blue-300'} bg-transparent`}
+              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'home' ? 'text-blue-600 font-bold' : 'text-gray-500 hover:text-blue-600'} bg-transparent`}
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -94,7 +94,7 @@ const ClienteLayout = () => {
             {/* Botón central de Crear/Solicitar (flotante) */}
             <button
               onClick={() => handleTabChange('solicitar')}
-              className="absolute left-1/2 -translate-x-1/2 -top-6 w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-500 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-105 active:scale-95 transition-transform"
+              className="absolute left-1/2 -translate-x-1/2 -top-6 w-14 h-14 bg-gray-900 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-105 active:scale-95 transition-transform"
             >
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -104,7 +104,7 @@ const ClienteLayout = () => {
             {/* Ajustes */}
             <button
               onClick={() => handleTabChange('ajustes')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'ajustes' ? 'text-blue-300' : 'text-blue-100 hover:text-blue-300'} bg-transparent`}
+              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'ajustes' ? 'text-blue-600 font-bold' : 'text-gray-500 hover:text-blue-600'} bg-transparent`}
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
