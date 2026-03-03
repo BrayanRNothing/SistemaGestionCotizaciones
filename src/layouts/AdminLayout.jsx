@@ -121,7 +121,7 @@ const AdminLayout = () => {
       {/* 1. SIDEBAR (Barra Lateral) GENERIC GRAY */}
       <aside
         ref={vantaRef}
-        className={`fixed inset-y-0 left-0 z-50 w-64 md:relative md:flex flex-col transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} overflow-hidden shadow-2xl md:shadow-none bg-blue-900 border-r border-blue-800`}
+        className={`fixed inset-y-0 left-0 z-50 w-64 md:relative md:flex flex-col transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} overflow-hidden shadow-2xl md:shadow-none bg-transparent border-r border-white/30`}
       >
 
         {/* Removed Overlay */}
@@ -129,18 +129,18 @@ const AdminLayout = () => {
         {/* Contenido del sidebar */}
         <div className="relative z-10 flex flex-col h-full">
           {/* Logo o Título */}
-          <div className="h-16 flex items-center justify-center mb-2 border-b border-blue-800">
-            <h2 className="text-xl font-bold text-blue-100 tracking-wide">SISTEMA ADMIN</h2>
+          <div className="h-16 flex items-center justify-center mb-2 border-b border-white/30">
+            <h2 className="text-xl font-bold text-gray-900 tracking-wide drop-shadow-sm">SISTEMA ADMIN</h2>
           </div>
 
           {/* Perfil del Usuario */}
           {usuario && (
             <div className="px-4 py-3 mb-2">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-3 flex items-center gap-3 shadow-lg">
+              <div className="bg-white/30 backdrop-blur-md border border-white/40 rounded-lg p-3 flex items-center gap-3 shadow-sm">
                 <Avatar name={usuario.nombre} size="md" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-white font-semibold text-sm truncate">{usuario.nombre}</p>
-                  <p className="text-blue-200 text-xs truncate">{usuario.username ? `@${usuario.username}` : usuario.email}</p>
+                  <p className="text-gray-900 font-bold text-sm truncate">{usuario.nombre}</p>
+                  <p className="text-gray-700 font-medium text-xs truncate">{usuario.username ? `@${usuario.username}` : usuario.email}</p>
                 </div>
               </div>
             </div>
