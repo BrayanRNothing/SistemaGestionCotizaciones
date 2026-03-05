@@ -103,7 +103,7 @@ function Cotizaciones() {
                                     onClick={() => setVistaActual('pendientes')}
                                 />
                                 <BotonMenu
-                                    gradient="from-blue-500/80 to-blue-600/80 hover:from-blue-600/90 hover:to-blue-700/90"
+                                    gradient="from-cyan-500/80 to-teal-500/80 hover:from-cyan-600/90 hover:to-teal-600/90"
                                     icon="💬"
                                     titulo="Cotizadas"
                                     count={cotizadas.length}
@@ -162,7 +162,7 @@ function Cotizaciones() {
                             <div className="flex-1 overflow-y-auto pr-2 pb-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {(vistaActual === 'pendientes' ? pendientes : vistaActual === 'aprobadas' ? aprobadas : vistaActual === 'cotizadas' ? cotizadas : rechazadas).map(cot => (
-                                        <div key={cot.id} className="bg-white rounded-xl border border-gray-300 hover:border-blue-400 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
+                                        <div key={cot.id} className="bg-white rounded-xl border border-gray-300 hover:border-cyan-400 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
                                             {/* Imagen */}
                                             <div className="h-48 w-full bg-gray-100 relative overflow-hidden">
                                                 {cot.foto ? (
@@ -192,7 +192,7 @@ function Cotizaciones() {
                                                 <div className="absolute top-3 right-3">
                                                     <span className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg backdrop-blur-sm ${
                                                         cot.estado === 'pendiente' ? 'bg-orange-500/90 text-white' :
-                                                        cot.estado === 'cotizado' ? 'bg-blue-500/90 text-white' :
+                                                        cot.estado === 'cotizado' ? 'bg-cyan-500/90 text-white' :
                                                         cot.estado === 'aprobado' || cot.estadoCliente === 'aprobado' ? 'bg-green-500/90 text-white' :
                                                         'bg-red-500/90 text-white'
                                                     }`}>
@@ -206,7 +206,7 @@ function Cotizaciones() {
                                                 {/* Header con usuario y fecha */}
                                                 <div className="flex items-center justify-between mb-3">
                                                     <div className="flex items-center gap-2">
-                                                        <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow">
+                                                        <div className="h-8 w-8 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xs shadow">
                                                             {(cot.usuario || cot.cliente).charAt(0).toUpperCase()}
                                                         </div>
                                                         <div>
@@ -233,7 +233,7 @@ function Cotizaciones() {
                                                 <div className="flex gap-2 mt-auto">
                                                     <button 
                                                         onClick={() => setDetalleCot(cot)} 
-                                                        className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                                                        className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-bold py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                                                     >
                                                         👁️ Ver detalles
                                                     </button>

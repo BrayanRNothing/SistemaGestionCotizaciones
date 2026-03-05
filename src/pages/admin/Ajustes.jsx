@@ -6,7 +6,7 @@ import { logout } from '../../utils/authUtils';
 
 const GestionTiposSolicitud = () => {
   const [tipos, setTipos] = useState([]);
-  const [nuevoTipo, setNuevoTipo] = useState({ nombre: '', descripcion: '', icono: '🔧', color: 'blue' });
+  const [nuevoTipo, setNuevoTipo] = useState({ nombre: '', descripcion: '', icono: 'wrench', color: 'blue' });
   const [modalEliminar, setModalEliminar] = useState({ open: false, id: null });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const GestionTiposSolicitud = () => {
       });
       if (res.ok) {
         toast.success('Tipo agregado');
-        setNuevoTipo({ nombre: '', descripcion: '', icono: '🔧', color: 'blue' });
+        setNuevoTipo({ nombre: '', descripcion: '', icono: 'wrench', color: 'blue' });
         fetchTipos();
       }
     } catch (error) {
@@ -61,94 +61,215 @@ const GestionTiposSolicitud = () => {
     }
   };
 
+  const iconosDisponibles = {
+    wrench: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    tools: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+      </svg>
+    ),
+    alert: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    ),
+    laptop: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+    design: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    ),
+    box: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+    ),
+    document: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
+    build: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    ),
+  };
+
   const colorMap = {
-    blue: 'border-blue-500 text-blue-700 bg-blue-50',
-    green: 'border-green-500 text-green-700 bg-green-50',
-    red: 'border-red-500 text-red-700 bg-red-50',
-    purple: 'border-purple-500 text-purple-700 bg-purple-50',
-    orange: 'border-orange-500 text-orange-700 bg-orange-50',
+    blue: { 
+      bg: 'bg-gradient-to-br from-blue-50 to-blue-100', 
+      border: 'border-blue-200',
+      text: 'text-blue-700',
+      icon: 'bg-blue-500 text-white',
+      hover: 'hover:shadow-blue-200'
+    },
+    green: { 
+      bg: 'bg-gradient-to-br from-emerald-50 to-emerald-100', 
+      border: 'border-emerald-200',
+      text: 'text-emerald-700',
+      icon: 'bg-emerald-500 text-white',
+      hover: 'hover:shadow-emerald-200'
+    },
+    red: { 
+      bg: 'bg-gradient-to-br from-rose-50 to-rose-100', 
+      border: 'border-rose-200',
+      text: 'text-rose-700',
+      icon: 'bg-rose-500 text-white',
+      hover: 'hover:shadow-rose-200'
+    },
+    purple: { 
+      bg: 'bg-gradient-to-br from-purple-50 to-purple-100', 
+      border: 'border-purple-200',
+      text: 'text-purple-700',
+      icon: 'bg-purple-500 text-white',
+      hover: 'hover:shadow-purple-200'
+    },
+    orange: { 
+      bg: 'bg-gradient-to-br from-amber-50 to-amber-100', 
+      border: 'border-amber-200',
+      text: 'text-amber-700',
+      icon: 'bg-amber-500 text-white',
+      hover: 'hover:shadow-amber-200'
+    },
+    indigo: { 
+      bg: 'bg-gradient-to-br from-indigo-50 to-indigo-100', 
+      border: 'border-indigo-200',
+      text: 'text-indigo-700',
+      icon: 'bg-indigo-500 text-white',
+      hover: 'hover:shadow-indigo-200'
+    },
+    teal: { 
+      bg: 'bg-gradient-to-br from-teal-50 to-teal-100', 
+      border: 'border-teal-200',
+      text: 'text-teal-700',
+      icon: 'bg-teal-500 text-white',
+      hover: 'hover:shadow-teal-200'
+    },
+    pink: { 
+      bg: 'bg-gradient-to-br from-pink-50 to-pink-100', 
+      border: 'border-pink-200',
+      text: 'text-pink-700',
+      icon: 'bg-pink-500 text-white',
+      hover: 'hover:shadow-pink-200'
+    },
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 mb-6">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">Gestión de Tipos de Solicitud</h2>
+    <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200 mb-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 bg-linear-to-br from-cyan-500 to-blue-600 rounded-lg">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800">Gestión de Tipos de Solicitud</h2>
+      </div>
       
-      <div className="flex flex-wrap gap-4 mb-6 p-4 bg-gray-50 rounded-xl items-end">
-        <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-          <input 
-            placeholder="Ej. Reparación" 
-            className="w-full p-2 border rounded-lg"
-            value={nuevoTipo.nombre}
-            onChange={e => setNuevoTipo({...nuevoTipo, nombre: e.target.value})}
-          />
-        </div>
-        <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
-          <input 
-            placeholder="Breve descripción" 
-            className="w-full p-2 border rounded-lg"
-            value={nuevoTipo.descripcion}
-            onChange={e => setNuevoTipo({...nuevoTipo, descripcion: e.target.value})}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Icono</label>
-          <select 
-            className="p-2 border rounded-lg w-full"
-            value={nuevoTipo.icono}
-            onChange={e => setNuevoTipo({...nuevoTipo, icono: e.target.value})}
+      <div className="bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl p-6 mb-8 border border-gray-200">
+        <div className="flex flex-wrap gap-4 items-end">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre del tipo</label>
+            <input 
+              placeholder="Ej. Reparación urgente" 
+              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition outline-none"
+              value={nuevoTipo.nombre}
+              onChange={e => setNuevoTipo({...nuevoTipo, nombre: e.target.value})}
+            />
+          </div>
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
+            <input 
+              placeholder="Descripción breve del tipo" 
+              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition outline-none"
+              value={nuevoTipo.descripcion}
+              onChange={e => setNuevoTipo({...nuevoTipo, descripcion: e.target.value})}
+            />
+          </div>
+          <div className="min-w-[150px]">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Icono</label>
+            <select 
+              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition outline-none bg-white cursor-pointer"
+              value={nuevoTipo.icono}
+              onChange={e => setNuevoTipo({...nuevoTipo, icono: e.target.value})}
+            >
+              <option value="wrench">⚙️ Configuración</option>
+              <option value="tools">🔧 Herramientas</option>
+              <option value="alert">⚠️ Alerta</option>
+              <option value="laptop">💻 Computadora</option>
+              <option value="design">🎨 Diseño</option>
+              <option value="box">📦 Paquete</option>
+              <option value="document">📄 Documento</option>
+              <option value="build">🏗️ Construcción</option>
+            </select>
+          </div>
+          <div className="min-w-[150px]">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+            <select 
+              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition outline-none bg-white cursor-pointer"
+              value={nuevoTipo.color}
+              onChange={e => setNuevoTipo({...nuevoTipo, color: e.target.value})}
+            >
+              <option value="blue">🔵 Azul</option>
+              <option value="green">🟢 Verde</option>
+              <option value="red">🔴 Rojo</option>
+              <option value="purple">🟣 Morado</option>
+              <option value="orange">🟠 Naranja</option>
+              <option value="indigo">🔷 Índigo</option>
+              <option value="teal">🐚 Turquesa</option>
+              <option value="pink">💗 Rosa</option>
+            </select>
+          </div>
+          <button 
+            onClick={agregarTipo}
+            className="bg-linear-to-r from-cyan-600 to-blue-600 text-white px-8 py-2.5 rounded-lg font-bold hover:from-cyan-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 h-[46px] flex items-center gap-2"
           >
-            <option value="🏗️">🏗️</option>
-            <option value="🔧">🔧</option>
-            <option value="🚨">🚨</option>
-            <option value="💻">💻</option>
-            <option value="🎨">🎨</option>
-            <option value="📦">📦</option>
-            <option value="📄">📄</option>
-          </select>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Agregar
+          </button>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
-          <select 
-            className="p-2 border rounded-lg w-full"
-            value={nuevoTipo.color}
-            onChange={e => setNuevoTipo({...nuevoTipo, color: e.target.value})}
-          >
-            <option value="blue">Azul</option>
-            <option value="green">Verde</option>
-            <option value="red">Rojo</option>
-            <option value="purple">Morado</option>
-            <option value="orange">Naranja</option>
-          </select>
-        </div>
-        <button 
-          onClick={agregarTipo}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition h-[42px]"
-        >
-          Agregar
-        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {tipos.map(t => (
-          <div key={t.id} className={`p-4 rounded-xl border-l-4 shadow-sm flex justify-between items-center ${colorMap[t.color] || colorMap.blue}`}>
-             <div className="flex items-center gap-3">
-                <span className="text-3xl bg-white p-2 rounded-full shadow-sm">{t.icono}</span>
-                <div>
-                  <div className="font-bold text-gray-900">{t.nombre}</div>
-                  <div className="text-sm opacity-75">{t.descripcion}</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {tipos.map(t => {
+          const colors = colorMap[t.color] || colorMap.blue;
+          return (
+            <div 
+              key={t.id} 
+              className={`${colors.bg} ${colors.border} border-2 rounded-xl p-5 shadow-md transition-all duration-200 ${colors.hover} hover:shadow-lg hover:scale-[1.02] group`}
+            >
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div className={`${colors.icon} p-3 rounded-xl shadow-sm group-hover:scale-110 transition-transform duration-200`}>
+                  {iconosDisponibles[t.icono] || iconosDisponibles['wrench']}
                 </div>
-             </div>
-             <button 
-                onClick={() => eliminarTipo(t.id)}
-                className="text-red-500 hover:bg-red-100 p-2 rounded-lg transition"
-                title="Eliminar"
-             >
-               🗑️
-             </button>
-          </div>
-        ))}
+                <button 
+                  onClick={() => eliminarTipo(t.id)}
+                  className="bg-white text-red-600 hover:bg-red-600 hover:text-white p-2 rounded-lg transition-all shadow-sm hover:shadow-md transform hover:scale-110 active:scale-95"
+                  title="Eliminar tipo"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+              <div>
+                <h3 className={`font-bold text-lg ${colors.text} mb-1`}>{t.nombre}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{t.descripcion || 'Sin descripción'}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <ConfirmarEliminarModal
         open={modalEliminar.open}
@@ -163,10 +284,10 @@ const GestionTiposSolicitud = () => {
 
 function Ajustes() {
   const API_BASE = API_URL;
-
-
-
-
+  const [exportandoDb, setExportandoDb] = useState(false);
+  const [importandoDb, setImportandoDb] = useState(false);
+  const [reiniciandoDb, setReiniciandoDb] = useState(false);
+  const importFileRef = useRef(null);
 
   const handleExportarDb = async () => {
     setExportandoDb(true);
@@ -398,7 +519,7 @@ function Ajustes() {
                 }
               }}
             />
-            <div className="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
+            <div className="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-cyan-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
           </label>
         </div>
         {!JSON.parse(sessionStorage.getItem('user') || '{}')?.email && (

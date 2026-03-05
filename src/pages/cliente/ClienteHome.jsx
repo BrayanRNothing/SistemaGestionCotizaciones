@@ -101,7 +101,7 @@ const ClienteHome = () => {
   const getEstadoBadge = (estado) => {
     const badges = {
       'pendiente': { text: 'Pendiente', color: 'bg-orange-500 text-white' },
-      'cotizado': { text: 'Cotizado', color: 'bg-blue-900 text-blue-50' },
+      'cotizado': { text: 'Cotizado', color: 'bg-cyan-600 text-cyan-50' },
       'aprobado': { text: 'Aprobado', color: 'bg-green-700 text-green-50' },
       'en-proceso': { text: 'En Proceso', color: 'bg-purple-100 text-purple-700' },
       'finalizado': { text: 'Finalizado', color: 'bg-gray-100 text-gray-700' },
@@ -133,7 +133,7 @@ const ClienteHome = () => {
 
         {/* Badge de técnico asignado */}
         {tieneAsignacion && (
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-300 rounded-xl p-3 mb-3">
+          <div className="bg-gradient-to-r from-green-50 to-cyan-50 border-2 border-green-300 rounded-xl p-3 mb-3">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">✅</span>
               <div className="flex-1">
@@ -174,7 +174,7 @@ const ClienteHome = () => {
               e.stopPropagation();
               setDetalleSeleccionado(cotizacion);
             }}
-            className="text-blue-600 font-semibold text-sm hover:text-blue-700 flex items-center gap-1"
+            className="text-cyan-600 font-semibold text-sm hover:text-cyan-700 flex items-center gap-1"
           >
             Ver detalles <span>≫</span>
           </button>
@@ -203,7 +203,7 @@ const ClienteHome = () => {
             {hasMore && !showAll && (
               <button
                 onClick={() => setShowAll(true)}
-                className="w-full py-3 text-blue-600 font-semibold text-sm hover:bg-blue-50 rounded-xl transition-all"
+                className="w-full py-3 text-cyan-600 font-semibold text-sm hover:bg-cyan-50 rounded-xl transition-all"
               >
                 Ver más ({lista.length - limit} más)
               </button>
@@ -296,7 +296,7 @@ const ClienteHome = () => {
   // Vista CREAR
   const renderCrear = () => {
     const colorClasses = {
-      blue: 'bg-blue-500 hover:bg-blue-600',
+      blue: 'bg-cyan-500 hover:bg-cyan-600',
       green: 'bg-green-500 hover:bg-green-600',
       red: 'bg-red-500 hover:bg-red-600',
       purple: 'bg-purple-500 hover:bg-purple-600',
@@ -343,7 +343,7 @@ const ClienteHome = () => {
         <div>
           <button
             onClick={() => setTipoServicio('')}
-            className="mb-4 text-gray-500 hover:text-blue-600 text-sm flex items-center gap-1"
+            className="mb-4 text-gray-500 hover:text-cyan-600 text-sm flex items-center gap-1"
           >
             ← Cambiar tipo de servicio
           </button>
@@ -466,7 +466,7 @@ const ClienteHome = () => {
 
               <div className="py-2 border-b border-gray-100">
                 <span className="text-gray-500 block mb-1">Usuario:</span>
-                <span className="font-semibold text-blue-600">@{usuario?.username || 'usuario'}</span>
+                <span className="font-semibold text-cyan-600">@{usuario?.username || 'usuario'}</span>
               </div>
 
               <div className="py-2 border-b border-gray-100">

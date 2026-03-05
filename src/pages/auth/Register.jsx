@@ -145,7 +145,7 @@ const Register = () => {
 
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-bold tracking-wider mb-2">Sistema Gestión</h1>
-                    <p className="text-blue-200 text-sm font-light tracking-widest uppercase">Sistema de Gestión</p>
+                    <p className="text-cyan-200 text-sm font-light tracking-widest uppercase">Sistema de Gestión</p>
                 </div>
 
                 <form onSubmit={handleRegister} className="space-y-6">
@@ -162,24 +162,24 @@ const Register = () => {
                         {/* COLUMNA IZQUIERDA: Datos Personales */}
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Nombre</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Nombre</label>
                                 <input
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                                     placeholder="Nombre completo"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Usuario *</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Usuario *</label>
                                 <input
                                     type="text"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                                     placeholder="tu_usuario"
                                     required
                                 />
@@ -187,12 +187,12 @@ const Register = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Email (Opcional)</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Email (Opcional)</label>
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                                     placeholder="correo@ejemplo.com"
                                 />
                                 <p className="text-xs text-gray-400 mt-1 ml-1">Solo para recibir notificaciones</p>
@@ -202,23 +202,23 @@ const Register = () => {
                         {/* COLUMNA DERECHA: Seguridad y Contacto */}
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Teléfono</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Teléfono</label>
                                 <input
                                     type="tel"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                                     placeholder="123 456 7890"
                                 />
                             </div>
 
                             <div className="pb-5">
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Contraseña</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Contraseña</label>
                                 <input
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -236,7 +236,7 @@ const Register = () => {
                                                 ></div>
                                             ))}
                                         </div>
-                                        <p className="text-xs text-blue-200">
+                                        <p className="text-xs text-cyan-200">
                                             Fortaleza: <span className="font-semibold">{passwordStrength.text}</span>
                                         </p>
                                     </div>
@@ -244,14 +244,14 @@ const Register = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Confirmar Contraseña</label>
+                                <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Confirmar Contraseña</label>
                                 <input
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:border-transparent outline-none transition hover:bg-white/10 ${confirmPassword && password !== confirmPassword
                                         ? 'border-red-500 focus:ring-red-500'
-                                        : 'border-white/10 focus:ring-blue-500'
+                                        : 'border-white/10 focus:ring-cyan-400'
                                         }`}
                                     placeholder="••••••••"
                                     required
@@ -270,7 +270,7 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-lg transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-lg transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? 'Validando...' : 'CREAR CUENTA'}
                         </button>
@@ -278,7 +278,7 @@ const Register = () => {
                 </form>
 
                 <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-400">¿Ya tienes una cuenta? <a href="/" className="text-blue-400 hover:text-blue-300 font-semibold hover:underline transition-colors">Iniciar Sesión</a></p>
+                    <p className="text-sm text-gray-400">¿Ya tienes una cuenta? <a href="/" className="text-cyan-400 hover:text-cyan-300 font-semibold hover:underline transition-colors">Iniciar Sesión</a></p>
                 </div>
             </div>
         </div>

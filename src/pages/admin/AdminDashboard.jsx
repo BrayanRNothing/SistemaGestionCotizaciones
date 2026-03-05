@@ -73,7 +73,7 @@ const AdminDashboard = () => {
   const getEstadoBadge = (estado) => {
     const badges = {
       'pendiente': 'bg-orange-100 text-orange-800',
-      'cotizado': 'bg-blue-100 text-blue-800',
+      'cotizado': 'bg-cyan-100 text-cyan-800',
       'aprobado': 'bg-green-100 text-green-800',
       'rechazado': 'bg-red-100 text-red-800',
       'en-proceso': 'bg-purple-100 text-purple-800',
@@ -131,10 +131,10 @@ const AdminDashboard = () => {
           </div>
         </Link>
 
-        <Link to="/admin/usuarios" className="bg-linear-to-br from-blue-500/80 to-blue-600/80 backdrop-blur-md rounded-xl p-5 text-white shadow-lg hover:shadow-xl transition transform hover:scale-105 border border-white/10 min-h-[140px]">
+        <Link to="/admin/usuarios" className="bg-linear-to-br from-cyan-500/80 to-teal-500/80 backdrop-blur-md rounded-xl p-5 text-white shadow-lg hover:shadow-xl transition transform hover:scale-105 border border-white/10 min-h-[140px]">
           <div className="flex flex-col items-center justify-center text-center h-full">
             <div className="text-4xl mb-3">👥</div>
-            <p className="text-blue-100 text-xs font-medium mb-2">Total Usuarios</p>
+            <p className="text-cyan-100 text-xs font-medium mb-2">Total Usuarios</p>
             <p className="text-3xl font-bold">{stats.totalUsuarios}</p>
           </div>
         </Link>
@@ -151,9 +151,9 @@ const AdminDashboard = () => {
           </h3>
 
           <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+            <div className="flex justify-between items-center p-3 bg-cyan-50 rounded-lg">
               <span className="text-gray-700 font-medium">Técnicos Activos</span>
-              <span className="text-2xl font-bold text-blue-600">{stats.tecnicos}</span>
+              <span className="text-2xl font-bold text-cyan-600">{stats.tecnicos}</span>
             </div>
 
             <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
@@ -192,7 +192,7 @@ const AdminDashboard = () => {
             </Link>
             <Link
               to="/admin/usuarios"
-              className="p-4 bg-linear-to-br from-blue-50 to-blue-100 rounded-lg hover:from-blue-100 hover:to-blue-200 transition text-center"
+              className="p-4 bg-linear-to-br from-cyan-50 to-teal-50 rounded-lg hover:from-cyan-100 hover:to-teal-100 transition text-center"
             >
               <div className="text-3xl mb-2">👥</div>
               <p className="text-sm font-semibold text-gray-700">Usuarios</p>

@@ -5,7 +5,7 @@ const getColorFromName = (name) => {
   if (!name) return '#6B7280'; // Gris por defecto
   
   const colors = [
-    'bg-blue-500',
+    'bg-cyan-500',
     'bg-green-500',
     'bg-purple-500',
     'bg-pink-500',

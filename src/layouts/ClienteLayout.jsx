@@ -57,17 +57,17 @@ const ClienteLayout = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-blue-50">
-      <header ref={vantaRef} className="shadow-lg px-6 py-4 flex justify-between items-center z-10 relative overflow-hidden min-h-[80px] bg-gradient-to-r from-blue-900 to-blue-700">
+    <div className="flex flex-col min-h-screen bg-cyan-50">
+      <header ref={vantaRef} className="shadow-lg px-6 py-4 flex justify-between items-center z-10 relative overflow-hidden min-h-[80px] bg-gradient-to-r from-gray-900 to-gray-800">
         {/* Overlay para legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-transparent to-blue-900 bg-opacity-50 pointer-events-none z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 bg-opacity-50 pointer-events-none z-0"></div>
 
         <div className="relative z-10 flex justify-between items-center w-full">
           <div className="flex items-center gap-3">
             {usuario && <Avatar name={usuario.nombre} size="md" />}
             <div>
               <h2 className="text-lg font-bold text-white drop-shadow-[0_2px_8px_rgba(37,99,235,0.5)]">🏠 Portal Usuario</h2>
-              {usuario && <p className="text-xs text-blue-200">{usuario.nombre}</p>}
+              {usuario && <p className="text-xs text-cyan-200">{usuario.nombre}</p>}
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const ClienteLayout = () => {
             {/* Home */}
             <button
               onClick={() => handleTabChange('home')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'home' ? 'text-blue-600 font-bold' : 'text-gray-500 hover:text-blue-600'} bg-transparent`}
+              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'home' ? 'text-cyan-500 font-bold' : 'text-gray-500 hover:text-cyan-500'} bg-transparent`}
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -104,7 +104,7 @@ const ClienteLayout = () => {
             {/* Ajustes */}
             <button
               onClick={() => handleTabChange('ajustes')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'ajustes' ? 'text-blue-600 font-bold' : 'text-gray-500 hover:text-blue-600'} bg-transparent`}
+              className={`flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-lg ${currentTab === 'ajustes' ? 'text-cyan-500 font-bold' : 'text-gray-500 hover:text-cyan-500'} bg-transparent`}
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />

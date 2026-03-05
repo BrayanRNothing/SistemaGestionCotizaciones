@@ -116,7 +116,7 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-blue-900">
+    <div className="flex h-screen bg-gray-900">
 
       {/* 1. SIDEBAR (Barra Lateral) GENERIC GRAY */}
       <aside
@@ -170,13 +170,13 @@ const AdminLayout = () => {
       </aside>
 
       {/* 2. ÁREA DE CONTENIDO (Aquí cambia lo que ves) */}
-      <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-blue-50">
+      <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-cyan-50">
         <header className="h-16 bg-white shrink-0 shadow-sm flex items-center justify-between px-6 md:hidden">
           {/* Header móvil funcional */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 -ml-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="p-2 -ml-2 text-gray-600 hover:text-cyan-600 transition-colors"
               aria-label="Toggle menu"
             >
               {sidebarOpen ? (

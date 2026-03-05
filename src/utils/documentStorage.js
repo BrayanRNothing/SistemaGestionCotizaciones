@@ -219,6 +219,28 @@ export async function eliminarCotizacionSimple(numero) {
 }
 
 /**
+ * Eliminar una orden de trabajo
+ */
+export async function eliminarOrdenTrabajo(numero) {
+    const response = await fetch(`${API_URL}/api/standalone-cotizaciones/${numero}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) throw new Error('Error al eliminar orden de trabajo');
+    return await response.json();
+}
+
+/**
+ * Eliminar un reporte de trabajo
+ */
+export async function eliminarReporteTrabajo(numero) {
+    const response = await fetch(`${API_URL}/api/standalone-cotizaciones/${numero}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) throw new Error('Error al eliminar reporte de trabajo');
+    return await response.json();
+}
+
+/**
  * Subir el PDF de una cotización independiente
  */
 export async function subirPDFCotizacion(pdfFile) {

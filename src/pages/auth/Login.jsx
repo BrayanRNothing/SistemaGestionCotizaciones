@@ -110,7 +110,7 @@ const Login = () => {
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold tracking-wider mb-2">Sistema Gestión</h1>
-          <p className="text-blue-200 text-sm font-light tracking-widest uppercase"></p>
+          <p className="text-cyan-200 text-sm font-light tracking-widest uppercase"></p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
@@ -123,24 +123,24 @@ const Login = () => {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Usuario</label>
+              <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Usuario</label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                 placeholder="usuario"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Contraseña</label>
+              <label className="block text-xs font-bold text-cyan-200 uppercase mb-2 ml-1">Contraseña</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition hover:bg-white/10"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition hover:bg-white/10"
                 placeholder="••••••••"
                 required
               />
@@ -150,8 +150,8 @@ const Login = () => {
           {/* Checkbox Recordar Sesión - Diseño Toggle Moderno */}
           <div className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 bg-blue-500/20 rounded-lg">
-                <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center justify-center w-10 h-10 bg-cyan-500/20 rounded-lg">
+                <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
               </div>
@@ -159,7 +159,7 @@ const Login = () => {
                 <label htmlFor="rememberMe" className="text-sm font-semibold text-white cursor-pointer select-none block">
                   Recordar sesión
                 </label>
-                <p className="text-xs text-blue-200/70">Mantener sesión activa</p>
+                <p className="text-xs text-cyan-200/70">Mantener sesión activa</p>
               </div>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
@@ -170,21 +170,21 @@ const Login = () => {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-white/10 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-600 peer-checked:to-blue-500 shadow-inner"></div>
+              <div className="w-14 h-7 bg-white/10 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-400/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-cyan-500 peer-checked:to-teal-400 shadow-inner"></div>
             </label>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-3.5 rounded-xl transition-all duration-300 shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+            className="w-full bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-white font-bold py-3.5 rounded-xl transition-all duration-300 shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
           >
             {loading ? 'Validando...' : 'INICIAR SESIÓN'}
           </button>
         </form>
 
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500">No tienes una cuenta? <a href='/register' className="text-blue-500 hover:underline">Registrate</a></p>
+          <p className="text-xs text-gray-500">No tienes una cuenta? <a href='/register' className="text-cyan-400 hover:underline">Registrate</a></p>
         </div>
       </div>
 

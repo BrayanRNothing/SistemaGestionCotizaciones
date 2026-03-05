@@ -201,9 +201,9 @@ const Comisiones = () => {
                     <p className="text-3xl font-bold">{formatCurrency(totales.ganado)}</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg">
+                <div className="bg-gradient-to-br from-cyan-500 to-teal-500 rounded-xl p-6 text-white shadow-lg">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-blue-100 text-sm font-medium">Servicios Completados</span>
+                        <span className="text-cyan-100 text-sm font-medium">Servicios Completados</span>
                         <span className="text-3xl">✅</span>
                     </div>
                     <p className="text-3xl font-bold">{totales.servicios}</p>
@@ -257,7 +257,7 @@ const Comisiones = () => {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-bold">
+                                            <span className="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-sm font-bold">
                                                 {tecnico.servicios}
                                             </span>
                                         </td>
@@ -335,7 +335,7 @@ const Comisiones = () => {
                                                             min="0"
                                                             max="100"
                                                             step="0.1"
-                                                            className="w-16 px-2 py-1 text-sm border-2 border-blue-500 rounded text-center"
+                                                            className="w-16 px-2 py-1 text-sm border-2 border-cyan-500 rounded text-center"
                                                             onKeyDown={(e) => {
                                                                 if (e.key === 'Enter') {
                                                                     actualizarComision(servicio.id, e.target.value);
@@ -355,7 +355,7 @@ const Comisiones = () => {
                                                 ) : (
                                                     <button
                                                         onClick={() => setEditandoComision(servicio.id)}
-                                                        className="px-3 py-1 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-full text-sm font-bold transition"
+                                                        className="px-3 py-1 bg-gray-100 hover:bg-cyan-100 text-gray-700 hover:text-cyan-700 rounded-full text-sm font-bold transition"
                                                     >
                                                         {porcentaje}%
                                                     </button>
